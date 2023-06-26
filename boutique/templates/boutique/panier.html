@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Mon panier</h1>
+    </div>
+</section>
+
+<div class="container">
+    {% for commande in commandes %}
+    <div class="row mb-4">
+        <div class="col-md-5 col-lg-3 col-xl-3">
+            <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                <img class="img-fluid w-100"
+                    src="{{ commande.fromage.image.url }}" alt="{{ commande.fromage.nom }}">
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-9 col-xl-9">
+            <div>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5>{{ commande.fromage.nom }}</h5>
+                        <p class="mb-3 text-muted">{{ commande.fromage.description }}</p>
+                        <p class="mb-2">Quantité : <span><strong>{{ commande.quantite }}</strong></span> </p>
+                    </div>
+                    <div>
+                        <div class="def-number-input number-input safari_only mb-0 w-100">
+                            <button class="minus btn btn-sm btn-primary" disabled>-</button>
+                            <input class="quantity form-control d-inline-block w-50" type="number" min="1" disabled value="{{ commande.quantite }}">
+                            <button class="plus btn btn-sm btn-primary" disabled>+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-0">Prix unitaire : <span><strong>{{ commande.fromage.prix }} $</strong></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-8">
+            <strong><p>Total à payer : <span class="text-warning">{{ total }}$</span></p></strong>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="{% url 'supprimer-panier' %}" class="btn btn-danger">Supprimer le panier</a>
+            <a href="{% url 'paiement' %}" class="btn btn-success">Passer à l'achat</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

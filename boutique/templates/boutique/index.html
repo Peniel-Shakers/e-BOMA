@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Fromagerie e-BOMA</h1>
+        <p class="lead text-muted mb-0">Découvrez notre sélection de fromages de qualité</p>
+        <p>Le fromage de BOMA, c'est nous!</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        {% for fromage in fromages %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ fromage.image.url }}" class="card-img-top" alt="{{ fromage.nom }}">
+                <div class="card-body">
+                    <h4 class="card-title">{{ fromage.nom }}</h4>
+                    <p class="card-text">{{ fromage.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ fromage.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">Voir les détails</a>
+                        </div>
+                        <strong><small class="text-warning">{{ fromage.prix }} $</small></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

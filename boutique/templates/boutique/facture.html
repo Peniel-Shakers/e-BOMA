@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="text-center mb-5">Facture pour {{ facture.utilisateur.username }}</h1>
+      <p class="mb-3"><strong>Date de la commande :</strong> {{ facture.date_commande }}</p>
+      <p class="mb-3"><strong>Montant total :</strong> {{ facture.montant_total }} $</p>
+
+      <h2 class="mt-5 mb-3">Produits commandés :</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Produit</th>
+              <th scope="col">Quantité</th>
+              <th scope="col">Prix unitaire</th>
+              <th scope="col">Sous-total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for commande in facture.commande_set.all %}
+              <tr>
+                <td>{{ commande.fromage.nom }}</td>
+                <td>{{ commande.quantite }}</td>
+                <td>{{ commande.fromage.prix }} $</td>
+                <td>{{ commande.montant }} $</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-5">
+        <button class="btn btn-primary" onclick="window.print()">Imprimer la facture</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Inscription - e-BOMA{% endblock %}
+
+{% block content %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Inscription</h1>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input id="username" type="text" name="username" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input id="password" type="password" name="password" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="adresse">Adresse</label>
+                    <input id="adresse" type="text" name="adresse" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input id="telephone" type="text" name="telephone" class="form-control">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-4">S'inscrire</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

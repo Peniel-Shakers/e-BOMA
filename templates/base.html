@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}e-BOMA{% endblock %}</title>
+    {% load static %}
+    <!-- lien vers le fichier CSS Bootstrap via un CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- lien vers votre fichier CSS -->
+    {% endblock %}
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'images/logo.png' %}" width="30" height="30" alt="Logo">
+            e-BOMA
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold text-dark" href="#">{{ user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'deconnexion' %}">Déconnexion</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'inscription' %}">S'inscrire</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'connexion' %}">Connexion</a>
+                </li>
+                {% endif %}
+                {% if user.panier %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panier' %}">
+                        <i class="bi-cart-fill me-1"></i>
+                        Voir le panier <span class="badge bg-dark text-white ms-1 rounded-pill">
+                            {{user.panier.commandes.count}}</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+    <br><br><br><br><br>
+<footer class="bg-light">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>À propos de nous</h4>
+                <p>Nous sommes une entreprise de vente de fromages en ligne proposant une large sélection de fromages
+                    de qualité en provénance de la ville de GOMA.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Contactez-nous</h4>
+                <ul class="list-unstyled">
+                    <li><i class="bi-geo-alt-fill me-2"></i> 264Bis Immeulble SHakers, Kinshasa-Gombe</li>
+                    <li><i class="bi-telephone-fill me-2"></i>+243820730330</li>
+                    <li><i class="bi-envelope-fill me-2"></i> contact@eboma.fr</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Suivez-nous</h4>
+                <ul class="list-inline">
+                               <img src="{% static 'images/logo.png' %}" width="150" height="150" alt="Logo">
+                    <li class="list-inline-item"><a href="#"><i class="bi bi-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="bi bi-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="bi bi-linkedin"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="bi bi-instagram"></i></a></li>
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- lien vers les fichiers JavaScript de Bootstrap via un CDN -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
+
+<style>
+    footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 10px 0;
+}
+</style>
