@@ -11,3 +11,7 @@ Sur le terminal, créer un environnement virtuel avec la commande :
 Activer votre environement virtuel puis installer les dependances :
 
     pip install requirements.txt
+
+Vous pouvez maitenant lancer l'application en tapant la commande :
+
+     python manage.py runserver
