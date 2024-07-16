@@ -11,6 +11,10 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- lien vers votre fichier CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+
     {% endblock %}
 </head>
 <body>
@@ -31,24 +35,28 @@
                     <a class="nav-link font-weight-bold text-dark" href="{% url 'index' %}">{{ user.username }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'deconnexion' %}">Déconnexion</a>
+                    <a class="nav-link" href="{% url 'deconnexion' %}">
+                        <i class="bi-box-arrow-right"></i>
+                    </a>
                 </li>
+                
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'inscription' %}">S'inscrire</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'connexion' %}">Connexion</a>
+                    <a class="nav-link" href="{% url 'login' %}">Connexion</a>
                 </li>
                 {% endif %}
                 {% if user.panier %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'panier' %}">
                         <i class="bi-cart-fill me-1"></i>
-                        Voir le panier <span class="badge bg-dark text-white ms-1 rounded-pill">
-                            {{user.panier.commandes.count}}</span>
+                        <span class="badge p-0 rounded-pill badge-lg">
+                            {{ user.panier.commandes.count }}
+                        </span>
                     </a>
-                </li>
+                </li>                
                 {% endif %}
             </ul>
         </div>
