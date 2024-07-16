@@ -117,8 +117,6 @@ class PaymentView(TemplateView):
             return render(request, 'boutique/facture.html',
                           context={"commandes": panier.commandes.all(), "facture": facture})
 
-
-
         except stripe.error.CardError as e:
             # Afficher un message d'erreur à l'utilisateur
             body = e.json_body

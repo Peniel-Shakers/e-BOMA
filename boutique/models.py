@@ -1,11 +1,7 @@
-from email.policy import default
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from eBOMA.settings import AUTH_USER_MODEL
-
-# Create your models here.
-
 
 class Fromage(models.Model):
     nom = models.CharField(max_length=255)
@@ -24,7 +20,7 @@ class Fromage(models.Model):
 
 class Facture(models.Model):
     utilisateur = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date_commande = models.DateTimeField(blank=True, default=timezone.now())
+    date_commande = models.DateTimeField(blank=True, default=timezone.now)
     montant_total = models.DecimalField(max_digits=7, decimal_places=2, default=0)
 
     def __str__(self):
@@ -37,7 +33,7 @@ class Commande(models.Model):
     quantite = models.IntegerField(default=1)
     validation = models.BooleanField(default=False)
     montant = models.DecimalField(max_digits=7, decimal_places=2, default=0)
-    date_commande = models.DateTimeField(blank=True, default=timezone.now())
+    date_commande = models.DateTimeField(blank=True, default=timezone.now)
     facture = models.ForeignKey(Facture, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
@@ -46,6 +42,7 @@ class Commande(models.Model):
     def calculer_montant(self):
         self.montant = self.fromage.prix * self.quantite
         self.save()
+
 
 class Panier(models.Model):
     utilisateur = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)

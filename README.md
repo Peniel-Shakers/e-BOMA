@@ -12,6 +12,10 @@ Activer votre environement virtuel puis installer les dependances :
 
     pip install requirements.txt
 
+Lancer les migrations de la base de données :
+
+     python manage.py migrate
+    
 Vous pouvez maitenant lancer l'application en tapant la commande :
 
      python manage.py runserver
