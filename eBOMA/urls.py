@@ -21,18 +21,23 @@ from boutique.views import *
 from comptes.views import *
 from eBOMA import settings
 
+handler403 = 'comptes.views.custom_403_view'
+handler404 = 'comptes.views.custom_404_view'
+
+
+
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('inscription/', inscription, name='inscription'),
-    path('connexion/', connexion_user, name="login"),
-    path('deconnexion/', login_required(deconnexion_user), name="deconnexion"),
-    path('panier/', login_required(panier), name="panier"),
-    path('panier/supprimer', login_required(supprimer_panier), name="supprimer-panier"),
-    path('panier/valider', login_required(valider_panier), name="valider-panier"),
-    path('deconnexion/', login_required(deconnexion_user), name="deconnexion"),
+    path('connexion/', connexion_user, name="connexion"),
+    path('deconnexion/', deconnexion_user, name="deconnexion"),
+    path('panier/', panier, name="panier"),
+    path('panier/supprimer', supprimer_panier, name="supprimer-panier"),
+    path('panier/valider', valider_panier, name="valider-panier"),
+    path('deconnexion/', deconnexion_user, name="deconnexion"),
     path('fromage/<str:slug>/', fromage_details, name="fromage"),
-    path('fromage/<str:slug>/ajouter-au-panier/', login_required(ajouter_au_panier), name="ajouter-au-panier"),
-    path('paiement/', login_required(PaymentView.as_view()), name='paiement'),
-    path('facture/', login_required(valider_panier), name='facture'),
+    path('fromage/<str:slug>/ajouter-au-panier/', ajouter_au_panier, name="ajouter-au-panier"),
+    path('paiement/', PaymentView.as_view(), name='paiement'),
+    path('facture/', valider_panier, name='facture'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

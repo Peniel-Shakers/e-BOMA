@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+pcakl29f=*!8(0i2czzlt1+%a+jlm&648ehhqriv#3x4+z2kx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fr-FR'
 
-TIME_ZONE = 'Europe/Paris'
+TIME_ZONE = 'Africa/Kinshasa'
 
 USE_I18N = True
 
@@ -131,6 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 AUTH_USER_MODEL = "comptes.Client"
+LOGIN_URL = 'connexion'
 
 STRIPE_PUBLIC_KEY = "pk_test_51N0cbDGSjdNHNPNnhyyZDmsNmGkhRESUoVEYz5uMLZ2YE9MLK42JHCel9Fc66iKcayX8qy92hOE203l7J0HhHogb00t6B9BhjJ"
 STRIPE_SECRET_KEY = "sk_test_51N0cbDGSjdNHNPNnBjgx7iYYR5Q7QyforrV67OXnrpo6zYJqeszf21wSz10qcDSdNCPm5flCUh39fHJFT3YgGnz500TPe3JMzz"

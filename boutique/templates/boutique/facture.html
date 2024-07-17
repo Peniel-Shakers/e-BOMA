@@ -33,10 +33,18 @@
       </div>
 
       <div class="text-center mt-5">
-        <button class="btn btn-primary" onclick="window.print()">Imprimer la facture</button>
+        <button class="btn btn-primary print-hide" onclick="window.print()">Imprimer la facture</button>
       </div>
 
     </div>
   </div>
 </div>
+
+<style>
+  @media print {
+    .print-hide {
+      display: none;
+    }
+  }
+</style>
 {% endblock %}

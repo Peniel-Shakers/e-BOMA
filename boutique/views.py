@@ -4,8 +4,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 import stripe
 from django.contrib import messages
-
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     fromages = Fromage.objects.all()
@@ -15,8 +14,7 @@ def fromage_details(request, slug ):
     fromage = get_object_or_404(Fromage, slug=slug)
     return render(request, 'boutique/details.html', context={"fromage": fromage})
     
-
-
+@login_required
 def ajouter_au_panier(request, slug):
     utilisateur = request.user
     fromage = get_object_or_404(Fromage, slug=slug)
@@ -31,20 +29,21 @@ def ajouter_au_panier(request, slug):
 
     return redirect(reverse("fromage", kwargs={"slug":slug}))
 
-
+@login_required
 def panier(request):
     utilisateur = request.user
     panier = get_object_or_404(Panier, utilisateur=utilisateur)
     total = panier.calculer_total()
     return render(request, 'boutique/panier.html', context={"commandes": panier.commandes.all(),"total": total})
 
+@login_required
 def supprimer_panier(request):
     panier = request.user.panier
     if panier:
         panier.delete()
     return redirect('index')
 
-
+@login_required
 def valider_panier(request):
     utilisateur = request.user
     panier = get_object_or_404(Panier, utilisateur=utilisateur)
@@ -55,9 +54,9 @@ def valider_panier(request):
         montant_total=total
     )
 
-    # Marquer les commandes du panier comme validées et les associer à la facture
     for commande in panier.commandes.all():
         commande.validation = True
+        commande.fromage.stock -= commande.quantite
         commande.date_commande = timezone.now()
         commande.facture = facture
         commande.save()
@@ -109,6 +108,7 @@ class PaymentView(TemplateView):
             # Marquer les commandes du panier comme validées et les associer à la facture
             for commande in panier.commandes.all():
                 commande.validation = True
+                commande.fromage.stock -= commande.quantite
                 commande.date_commande = timezone.now()
                 commande.facture = facture
                 commande.save()

@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login, logout, authenticate
-
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
-
 
 def inscription(request):
     if request.method == "POST":
@@ -24,7 +22,6 @@ def inscription(request):
 
     return render(request, 'comptes/inscription.html')
 
-
 def connexion_user(request):
     if request.method == "POST":
         nom_utilisateur = request.POST.get("username")
@@ -37,7 +34,13 @@ def connexion_user(request):
             return redirect('index')
     return render(request, 'comptes/connexion.html')
 
-
+@login_required
 def deconnexion_user(request):
     logout(request)
     return redirect('index')
+
+def custom_403_view(request, exception=None):
+    return render(request, 'comptes/403.html', status=403)
+
+def custom_404_view(request, exception=None):
+    return render(request, 'comptes/404.html', status=404)
